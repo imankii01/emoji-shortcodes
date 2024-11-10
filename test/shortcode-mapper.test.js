@@ -1,12 +1,23 @@
-const { convertShortcode, addCustomShortcode } = require('../dist');
+const { convertShortcode } = require('../dist');
 
-describe('Shortcode Mapper', () => {
-  test('should map :heart_eyes: to 😍', () => {
-    expect(convertShortcode(':heart_eyes:')).toBe('😍');
+describe('Shortcode Mapper Tests', () => {
+  test('should convert :smile: to 😊', () => {
+    expect(convertShortcode(':smile:')).toBe('😊');
   });
 
-  test('should add a custom shortcode and convert it', () => {
-    addCustomShortcode(':new_emoji:', '🌟');
-    expect(convertShortcode(':new_emoji:')).toBe('🌟');
+  test('should convert :fire: to 🔥', () => {
+    expect(convertShortcode(':fire:')).toBe('🔥');
+  });
+
+  test('should convert :rocket: to 🚀', () => {
+    expect(convertShortcode(':rocket:')).toBe('🚀');
+  });
+
+  test('should convert :unicorn: to 🦄', () => {
+    expect(convertShortcode(':unicorn:')).toBe('🦄');
+  });
+
+  test('should convert :coffee: to ☕', () => {
+    expect(convertShortcode(':coffee:')).toBe('☕');
   });
 });

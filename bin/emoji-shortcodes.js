@@ -1,23 +1,25 @@
 #!/usr/bin/env node
+const { addCustomShortcode, convertShortcode, getAllShortcodes } = require('../src');
+const [,, command, ...args] = process.argv;
 
-const { convertShortcode, addCustomShortcode, getAllShortcodes } = require('../dist');
+switch (command) {
+  case 'convert':
+    const shortcode = args.join(' ');
+    console.log(convertShortcode(shortcode));
+    break;
 
-const args = process.argv.slice(2);
+  case 'add':
+    const shortcodeToAdd = args[0];
+    const emoji = args[1];
+    addCustomShortcode(shortcodeToAdd, emoji);
+    console.log(`Added: ${shortcodeToAdd} => ${emoji}`);
+    break;
 
-// Convert shortcode
-if (args[0] === 'convert') {
-  const shortcode = args[1];
-  console.log(convertShortcode(shortcode));
-}
+  case 'list':
+    console.log(getAllShortcodes());
+    break;
 
-// Add custom shortcode
-if (args[0] === 'add') {
-  const [shortcode, emoji] = args.slice(1);
-  addCustomShortcode(shortcode, emoji);
-  console.log(`Added: ${shortcode} => ${emoji}`);
-}
-
-// List all shortcodes
-if (args[0] === 'list') {
-  console.log(getAllShortcodes());
+  default:
+    console.log('Unknown command');
+    break;
 }
